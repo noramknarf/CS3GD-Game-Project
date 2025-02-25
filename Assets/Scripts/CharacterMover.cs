@@ -8,7 +8,8 @@ public class CharacterMover : MonoBehaviour
 	public float speed = 10.0f;
 	public float jumpSpeed = 10.0f;
 	public float gravity = 20.0f;
-	public int max_jumps = 2;
+	public int maxJumps = 2;
+	public float maxJumpCooldown = 0.2f;
 	public float rotationSpeed = 100.0f;
 
 	public float currentSpeed = 0.0f;
@@ -18,7 +19,10 @@ public class CharacterMover : MonoBehaviour
 
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController characterController;
+	
 	private int remainingJumps = 0;
+	private float jumpCooldown;
+	
 
 
 
@@ -26,17 +30,23 @@ public class CharacterMover : MonoBehaviour
 	void Awake()
 	{
 		characterController = GetComponent<CharacterController>();
+		jumpCooldown = maxJumpCooldown;
 	}
 
 	void Update() 
 	{
+		//decrement the cooldown timer(s)
+		//jumpCooldown -= Time.deltaTime;
+		jumpCooldown = Mathf.Clamp((jumpCooldown - Time.deltaTime), 0, maxJumpCooldown);
+		print(jumpCooldown);
 
-	    // if we are on the ground then allow movement
-	    if (IsGrounded) 
+
+		// if we are on the ground then allow movement
+		if (IsGrounded) 
 	    {
 			float input = Input.GetAxis("Vertical");
 	        bool  isMoving = (input != 0);
-			remainingJumps = max_jumps;
+			remainingJumps = maxJumps;
 
 			moveDirection.x = transform.forward.x;
 			moveDirection.z = transform.forward.z;
@@ -62,16 +72,20 @@ public class CharacterMover : MonoBehaviour
 
 			moveDirection.y  = Mathf.Max(0, moveDirection.y);
 
-	        
-			if (Input.GetButton("Jump")) 
-			{
-				moveDirection.y = jumpSpeed;
-			}
 	    }
 		else
 		{
 			moveDirection.y -= (gravity * Time.deltaTime);
 		}
+
+		if (Input.GetButtonDown("Jump") && remainingJumps >= 1 && jumpCooldown == 0.0f)
+		{
+			moveDirection.y += jumpSpeed;
+			remainingJumps--;
+			jumpCooldown = maxJumpCooldown;
+			print("Remaining jumps = " + remainingJumps + "/" + maxJumps);
+		}
+
 		float rotation = (Input.GetAxis("Horizontal") * rotationSpeed) * Time.deltaTime;
 
 	    transform.Rotate(0, rotation, 0);
