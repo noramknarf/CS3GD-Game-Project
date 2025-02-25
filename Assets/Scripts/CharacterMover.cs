@@ -8,6 +8,7 @@ public class CharacterMover : MonoBehaviour
 	public float speed = 10.0f;
 	public float jumpSpeed = 10.0f;
 	public float gravity = 20.0f;
+	public int max_jumps = 2;
 	public float rotationSpeed = 100.0f;
 
 	public float currentSpeed = 0.0f;
@@ -17,6 +18,7 @@ public class CharacterMover : MonoBehaviour
 
 	private Vector3 moveDirection = Vector3.zero;
 	private CharacterController characterController;
+	private int remainingJumps = 0;
 
 
 
@@ -34,6 +36,7 @@ public class CharacterMover : MonoBehaviour
 	    {
 			float input = Input.GetAxis("Vertical");
 	        bool  isMoving = (input != 0);
+			remainingJumps = max_jumps;
 
 			moveDirection.x = transform.forward.x;
 			moveDirection.z = transform.forward.z;
