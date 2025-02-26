@@ -26,6 +26,8 @@ public class CharacterMover : MonoBehaviour
 
 	private Animator playerAnimator;
 	private int walkSpeedHash = Animator.StringToHash("playerMoveSpeed");
+	private int verticalSpeedHash = Animator.StringToHash("playerVerticalSpeed");
+	private float verticalVelocity = 0;
 
 	
 
@@ -98,8 +100,12 @@ public class CharacterMover : MonoBehaviour
 
 		characterController.Move(moveDirection * Time.deltaTime);
 		
+		verticalVelocity = Mathf.Abs(moveDirection.y);
+		playerAnimator.SetFloat(verticalSpeedHash, verticalVelocity);
 		playerAnimator.SetFloat(walkSpeedHash , currentSpeed);
-		print("walkSpeed = " + playerAnimator.GetFloat(walkSpeedHash));
+		print("verticalSpeed = " + playerAnimator.GetFloat(verticalSpeedHash));
+		//print("walkSpeed = " + playerAnimator.GetFloat(walkSpeedHash));
+		
 	}
 	
 }
