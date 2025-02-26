@@ -23,6 +23,10 @@ public class CharacterMover : MonoBehaviour
 	
 	private int remainingJumps = 0;
 	private float jumpCooldown;
+
+	private Animator playerAnimator;
+	private int walkSpeedHash = Animator.StringToHash("playerMoveSpeed");
+
 	
 
 
@@ -32,6 +36,7 @@ public class CharacterMover : MonoBehaviour
 	{
 		characterController = GetComponent<CharacterController>();
 		jumpCooldown = maxJumpCooldown;
+		playerAnimator = this.GetComponent<Animator>();
 	}
 
 	void Update() 
@@ -92,6 +97,9 @@ public class CharacterMover : MonoBehaviour
 	    transform.Rotate(0, rotation, 0);
 
 		characterController.Move(moveDirection * Time.deltaTime);
+		
+		playerAnimator.SetFloat(walkSpeedHash , currentSpeed);
+		print("walkSpeed = " + playerAnimator.GetFloat(walkSpeedHash));
 	}
 	
 }
