@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CharacterMover : MonoBehaviour 
 {
+    //NOTICE: This code was initially copied over from the completed CS3GD lab 5 to be used as a basis. Credit for any logic remaining by the review stage goes to the relevant module tutor(s)
 	public bool IsGrounded { get {return characterController.isGrounded;}}
 
 	public float speed = 10.0f;

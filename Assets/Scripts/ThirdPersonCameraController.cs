@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ThirdPersonCameraController : MonoBehaviour
 {
+    //NOTICE: This code was copied directly from the completed CS3GD Lab 5 to be used as a basis for further behaviours.
 
     public Transform target;
     public float distFromTarget;
