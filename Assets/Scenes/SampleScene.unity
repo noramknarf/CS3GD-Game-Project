@@ -172,8 +172,8 @@ MonoBehaviour:
   rotationSpeed: 100
   currentSpeed: 0
   maxSpeed: 10
-  acceleration: 10
-  decceleration: 20
+  acceleration: 15
+  decceleration: 40
 --- !u!143 &2716208
 CharacterController:
   m_ObjectHideFlags: 0

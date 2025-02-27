@@ -23,11 +23,12 @@ public class CharacterMover : MonoBehaviour
 	
 	private int remainingJumps = 0;
 	private float jumpCooldown;
+	private float verticalVelocity = 0;
 
 	private Animator playerAnimator;
 	private int walkSpeedHash = Animator.StringToHash("playerMoveSpeed");
 	private int verticalSpeedHash = Animator.StringToHash("playerVerticalSpeed");
-	private float verticalVelocity = 0;
+	private int groundedHash = Animator.StringToHash("playerGrounded");
 
 	
 
@@ -100,8 +101,11 @@ public class CharacterMover : MonoBehaviour
 
 		characterController.Move(moveDirection * Time.deltaTime);
 		
-		verticalVelocity = Mathf.Abs(moveDirection.y);
-		playerAnimator.SetFloat(verticalSpeedHash, verticalVelocity);
+		//update the playerAnimator parameters
+					verticalVelocity = Mathf.Abs(moveDirection.y);
+			playerAnimator.SetFloat(verticalSpeedHash, verticalVelocity);
+
+		playerAnimator.SetBool(groundedHash , IsGrounded);
 		playerAnimator.SetFloat(walkSpeedHash , currentSpeed);
 		print("verticalSpeed = " + playerAnimator.GetFloat(verticalSpeedHash));
 		//print("walkSpeed = " + playerAnimator.GetFloat(walkSpeedHash));
