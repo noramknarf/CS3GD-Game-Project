@@ -47,8 +47,6 @@ public class CharacterMover : MonoBehaviour
 		//decrement the cooldown timer(s)
 		//jumpCooldown -= Time.deltaTime;
 		jumpCooldown = Mathf.Clamp((jumpCooldown - Time.deltaTime), 0, maxJumpCooldown);
-		print(jumpCooldown);
-
 
 		// if we are on the ground then allow movement
 		if (IsGrounded) 
@@ -107,7 +105,7 @@ public class CharacterMover : MonoBehaviour
 
 		playerAnimator.SetBool(groundedHash , IsGrounded);
 		playerAnimator.SetFloat(walkSpeedHash , currentSpeed);
-		print("verticalSpeed = " + playerAnimator.GetFloat(verticalSpeedHash));
+		//print("verticalSpeed = " + playerAnimator.GetFloat(verticalSpeedHash));
 		//print("walkSpeed = " + playerAnimator.GetFloat(walkSpeedHash));
 		
 	}
