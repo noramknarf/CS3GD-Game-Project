@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e98290ecb5c93c448c6f89e33b44a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GoalSoundSource: {fileID: 0}
+  GoalSoundSource: {fileID: 1502870871}
 --- !u!135 &2060342551
 SphereCollider:
   m_ObjectHideFlags: 0

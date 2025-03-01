@@ -22,8 +22,7 @@ public class GoalColliderLogic : MonoBehaviour
 
     public void OnTriggerEnter(Collider triggeringObj){
         if (triggeringObj.tag == "Player"){
-            print("Goal triggered");
-
+            GoalSoundSource.Play();
         }
 
     }
