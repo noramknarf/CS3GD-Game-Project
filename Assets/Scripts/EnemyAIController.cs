@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//current task is to implement chase logic. Target player as destination if within a certain distance.
+/*Next to do is attack mechanics.
+I'm thinking the enemy should stop a certain distance from the player, play a sound effect, then after a short time charge the player's loacation at the time the "windup" ended
+*/
 
 public class EnemyAIController : MonoBehaviour
 {
