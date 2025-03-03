@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-//for now just implementing the tutorial waypoint-based patrol logic so just follow that for now.
+//current task is to implement chase logic. Target player as destination if within a certain distance.
 
 public class EnemyAIController : MonoBehaviour
 {
@@ -24,6 +24,12 @@ private int index = 0;
 [SerializeField]
 private float distToSwitchWaypoints = 1.0f;
 
+//Chase variables
+[SerializeField]
+private float detectionRange = 15.0f;
+private bool playerInDetectionRange;
+
+
 
     // Start is called before the first frame update
     void Awake()
@@ -38,6 +44,9 @@ private float distToSwitchWaypoints = 1.0f;
         if (state == AgentState.patroling){
             Patrol();
         }
+        else if (state == AgentState.chasing){
+            Chase();
+        }
         else{
             Idle();
         }
@@ -50,6 +59,18 @@ private float distToSwitchWaypoints = 1.0f;
         if (agent.remainingDistance <= distToSwitchWaypoints){
             agent.SetDestination(waypoints[index].position);
             index = (index + 1)% waypoints.Length;
+        }
+    }
+
+    void Chase(){
+        playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
+        print(playerInDetectionRange);
+
+        if (playerInDetectionRange){
+            agent.SetDestination(player.position);
+        }
+        else{
+            Idle();
         }
     }
 
