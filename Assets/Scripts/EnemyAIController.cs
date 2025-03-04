@@ -11,7 +11,7 @@ public class EnemyAIController : MonoBehaviour
 {
 
     public enum AgentState{
-    Idle = 0, patroling, chasing
+    Idle = 0, patroling, chasing, attacking
 }
 
 public AgentState state;
@@ -31,6 +31,15 @@ private float distToSwitchWaypoints = 1.0f;
 private float detectionRange = 15.0f;
 private bool playerInDetectionRange;
 
+//Charge attack variables
+public float attackRange = 5.0f;
+public float attackCooldown = 5.0f;
+public float attackWindup = 2.0f;
+private float timeSinceAttack = 0.0f;
+private bool attackReady = true;
+private bool preparingAttack = false;
+private bool playerInAttackRange = false;
+
 
 
     // Start is called before the first frame update
@@ -43,11 +52,19 @@ private bool playerInDetectionRange;
     // Update is called once per frame
     void Update()
     {
+
         if (state == AgentState.patroling){
             Patrol();
         }
         else if (state == AgentState.chasing){
             Chase();
+        }
+        else if(state == AgentState.attacking){
+            agent.isStopped = true;
+            print("Enemy would attack now");
+            attackReady = false;
+            timeSinceAttack = 0.0f;
+            state = AgentState.chasing;
         }
         else{
             Idle();
@@ -65,18 +82,39 @@ private bool playerInDetectionRange;
     }
 
     void Chase(){
-        playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
-        print(playerInDetectionRange);
+            
+        if(attackReady){
+            
+            playerInAttackRange = Physics.CheckSphere(this.transform.position, attackRange, whatIsPlayer);
+            if (playerInAttackRange){
+                state = AgentState.attacking;
+            }
+            else{
+                playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
+                if(playerInDetectionRange){
+                    agent.isStopped = false;
+                    agent.SetDestination(player.position);
+                }
+            }
+        }
+        else {
+        timeSinceAttack += Time.deltaTime;
+            if (timeSinceAttack >= attackCooldown){
+                attackReady = true;
+            }
+        }
 
-        if (playerInDetectionRange){
-            agent.SetDestination(player.position);
-        }
-        else{
-            Idle();
-        }
+        //
+
     }
 
     void Idle(){
 
     }
+    /*enemy should chase until in attack range, then begin windup.
+    while winding up, should freeze in place and face player.
+    after a windup period, should take the player's location at time of the windup period ending and move quickly towards that point.
+    once the point is reached, the enemy should reset and no longer be treated as attacking.
+    Meanwhile, a cooldown begins for the next attack
+    */
 }

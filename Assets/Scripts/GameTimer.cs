@@ -8,14 +8,13 @@ public class GameTimer : MonoBehaviour
 {
     public Text timerText;
     
-    private float remainingTime;
+    public float remainingTime = 20;
     private int remainingMins;
     private int remainingSeconds;
 
     // Start is called before the first frame update
     void Start()
     {
-        remainingTime = 20;
     }
 
     // Update is called once per frame

@@ -933,6 +933,9 @@ MonoBehaviour:
   - {fileID: 326135306}
   distToSwitchWaypoints: 1
   detectionRange: 15
+  attackRange: 5
+  attackCooldown: 5
+  attackWindup: 2
 --- !u!195 &1916264202
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1132,6 +1135,10 @@ PrefabInstance:
     - target: {fileID: 4918353839741186558, guid: 1058479f2a91926459eb178971756ca3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918353840106808458, guid: 1058479f2a91926459eb178971756ca3, type: 3}
+      propertyPath: remainingTime
+      value: 2000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1058479f2a91926459eb178971756ca3, type: 3}
