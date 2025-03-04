@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class StageHazardController : MonoBehaviour
 {
@@ -14,5 +15,11 @@ public class StageHazardController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnTriggerEnter(Collider triggeringObj){
+        if (triggeringObj.tag == "Player"){
+        SceneManager.LoadSceneAsync(1);
+        }
     }
 }
