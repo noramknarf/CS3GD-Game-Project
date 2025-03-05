@@ -24,7 +24,7 @@ public LayerMask whatIsPlayer;
 public Transform[] waypoints;
 private int index = 0;
 [SerializeField]
-private float distToSwitchWaypoints = 1.0f;
+private float distToSwitchWaypoints = 2.0f;
 
 //Chase variables
 [SerializeField]
@@ -35,10 +35,13 @@ private bool playerInDetectionRange;
 public float attackRange = 5.0f;
 public float attackCooldown = 5.0f;
 public float attackWindup = 2.0f;
+    
+private float windupTimer = 0.0f;
 private float timeSinceAttack = 0.0f;
 private bool attackReady = true;
 private bool preparingAttack = false;
 private bool playerInAttackRange = false;
+private bool charging = false;
 
 
 
@@ -55,16 +58,13 @@ private bool playerInAttackRange = false;
 
         if (state == AgentState.patroling){
             Patrol();
+            //Debug.Log("patroling");
         }
         else if (state == AgentState.chasing){
             Chase();
         }
         else if(state == AgentState.attacking){
-            agent.isStopped = true;
-            print("Enemy would attack now");
-            attackReady = false;
-            timeSinceAttack = 0.0f;
-            state = AgentState.chasing;
+            Attack();
         }
         else{
             Idle();
@@ -78,33 +78,79 @@ private bool playerInAttackRange = false;
         if (agent.remainingDistance <= distToSwitchWaypoints){
             agent.SetDestination(waypoints[index].position);
             index = (index + 1)% waypoints.Length;
+            Debug.Log("index =" + index);
         }
     }
 
     void Chase(){
             
         if(attackReady){
-            
+            Debug.Log("checking if player is in range");
             playerInAttackRange = Physics.CheckSphere(this.transform.position, attackRange, whatIsPlayer);
             if (playerInAttackRange){
                 state = AgentState.attacking;
+                Debug.Log("Player within attack range");
             }
             else{
+                Debug.Log("Player outside attack range");
                 playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
                 if(playerInDetectionRange){
+                    Debug.Log("Player within detection range, moving towards player");
                     agent.isStopped = false;
                     agent.SetDestination(player.position);
+
                 }
             }
         }
         else {
-        timeSinceAttack += Time.deltaTime;
+            timeSinceAttack += Time.deltaTime;
+            Debug.Log("Waiting on attack cooldown. time remaining: " + (attackCooldown - timeSinceAttack));
             if (timeSinceAttack >= attackCooldown){
                 attackReady = true;
             }
         }
 
         //
+
+    }
+
+    void Attack() {
+        if (!charging) {
+            attackReady = false;
+            preparingAttack = true;
+        }
+        
+        if (preparingAttack) {
+            windupTimer += Time.deltaTime;
+            agent.isStopped = true;
+        }
+
+        if (windupTimer >= attackWindup)
+        {
+            charging = true;
+            preparingAttack = false;
+           
+            
+            if (agent.isStopped) {
+                float playerX = (float)player.position.x;
+                Vector3 targetCoords = new Vector3(playerX, player.position.y, player.position.z);
+                agent.isStopped = false;
+                agent.SetDestination(targetCoords);
+                Debug.Log("This should only happen once");
+            }
+
+            Debug.Log("charge target = " + agent.destination);
+
+            if (agent.remainingDistance <= 2) {
+                timeSinceAttack = 0.0f;
+                charging = false;
+                state = AgentState.chasing;
+                Debug.Log("Reached target. Entering chase mode.");
+            }
+            
+        }
+
+
 
     }
 
