@@ -1194,7 +1194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 2
-  agent: {fileID: 0}
+  agent: {fileID: 7271562512539621672}
   player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
