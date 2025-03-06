@@ -27,7 +27,7 @@ public class GameTimer : MonoBehaviour
         timerText.text = string.Format("{0:D2}:{1:D2}", remainingMins, remainingSeconds);
         
         if(remainingTime <= 0 && loading == false){
-            SceneManager.LoadSceneAsync(1);
+            SceneManager.LoadSceneAsync(2);
             loading = true;
         }
 
