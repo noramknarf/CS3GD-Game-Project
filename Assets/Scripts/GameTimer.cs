@@ -11,6 +11,7 @@ public class GameTimer : MonoBehaviour
     public float remainingTime = 20;
     private int remainingMins;
     private int remainingSeconds;
+    private bool loading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +26,9 @@ public class GameTimer : MonoBehaviour
         remainingSeconds = (int)(remainingTime % 60);
         timerText.text = string.Format("{0:D2}:{1:D2}", remainingMins, remainingSeconds);
         
-        if(remainingTime <= 0){
+        if(remainingTime <= 0 && loading == false){
             SceneManager.LoadSceneAsync(1);
+            loading = true;
         }
 
     }
