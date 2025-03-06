@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalColliderLogic : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GoalColliderLogic : MonoBehaviour
 
     public void OnTriggerEnter(Collider triggeringObj){
         if (triggeringObj.tag == "Player"){
+            SceneManager.LoadSceneAsync(3);
             GoalSoundSource.Play();
         }
 
