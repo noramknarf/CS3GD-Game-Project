@@ -24,7 +24,7 @@ public class GoalColliderLogic : MonoBehaviour
     public void OnTriggerEnter(Collider triggeringObj){
         if (triggeringObj.tag == "Player"){
             SceneManager.LoadSceneAsync(3);
-            GoalSoundSource.Play();
+            //GoalSoundSource.Play();
         }
 
     }
