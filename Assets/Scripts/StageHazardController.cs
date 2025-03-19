@@ -19,8 +19,7 @@ public class StageHazardController : MonoBehaviour
 
     public void OnTriggerEnter(Collider triggeringObj){
         if (triggeringObj.tag == "Player"){
-        //SceneManager.LoadSceneAsync(1);
-            SceneManager.LoadScene(1);
+        SceneManager.LoadSceneAsync(2);
         }
     }
 }
