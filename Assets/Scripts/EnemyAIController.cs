@@ -35,6 +35,7 @@ private bool playerInDetectionRange;
 public float attackRange = 5.0f;
 public float attackCooldown = 5.0f;
 public float attackWindup = 2.0f;
+
     
 private float windupTimer = 0.0f;
 private float timeSinceAttack = 0.0f;
@@ -42,13 +43,16 @@ private bool attackReady = true;
 private bool preparingAttack = false;
 private bool playerInAttackRange = false;
 private bool charging = false;
-
+private Animator enemyAnimator;
+private int movementStateHash = Animator.StringToHash("MovementState");
 
 
     // Start is called before the first frame update
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        enemyAnimator = this.GetComponent<Animator>();
+        
 
     }
 
@@ -57,16 +61,19 @@ private bool charging = false;
     {
 
         if (state == AgentState.patroling){
+            
             Patrol();
             //Debug.Log("patroling");
         }
         else if (state == AgentState.chasing){
+            
             Chase();
         }
         else if(state == AgentState.attacking){
             Attack();
         }
         else{
+            
             Idle();
         }
         
@@ -74,6 +81,7 @@ private bool charging = false;
 
     //Has the enemy cycle through a set of pre-made waypoints and wander between them.
     void Patrol(){
+        enemyAnimator.SetInteger(movementStateHash, 1);
         agent.isStopped = false;
         if (agent.remainingDistance <= distToSwitchWaypoints){
             agent.SetDestination(waypoints[index].position);
@@ -83,7 +91,7 @@ private bool charging = false;
     }
 
     void Chase(){
-            
+        enemyAnimator.SetInteger(movementStateHash, 1);
         if(attackReady){
             Debug.Log("checking if player is in range");
             playerInAttackRange = Physics.CheckSphere(this.transform.position, attackRange, whatIsPlayer);
@@ -155,7 +163,7 @@ private bool charging = false;
     }
 
     void Idle(){
-
+        enemyAnimator.SetInteger(movementStateHash, 0);
     }
     /*enemy should chase until in attack range, then begin windup.
     while winding up, should freeze in place and face player.
