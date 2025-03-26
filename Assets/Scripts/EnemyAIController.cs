@@ -101,6 +101,7 @@ private int movementStateHash = Animator.StringToHash("MovementState");
             }
             else{
                 Debug.Log("Player outside attack range");
+                enemyAnimator.SetInteger(movementStateHash, 0);
                 playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
                 if(playerInDetectionRange){
                     Debug.Log("Player within detection range, moving towards player");
