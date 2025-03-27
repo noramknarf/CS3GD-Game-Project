@@ -235,6 +235,11 @@ Transform:
   m_Father: {fileID: 950704436}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &684169576 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: -1640965389613099512, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+  m_PrefabInstance: {fileID: 1249645319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,6 +607,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7212154425404988856, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+      propertyPath: hurtbox
+      value: 
+      objectReference: {fileID: 684169576}
+    - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 543450651920454896}
     - target: {fileID: 7271562513134184525, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -727,7 +740,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -1640965389613099512, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: m_IsTrigger
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7212154425404988856, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: hurtbox
@@ -745,6 +758,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 543450651920454896}
+    - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+      propertyPath: distToBeginBite
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 

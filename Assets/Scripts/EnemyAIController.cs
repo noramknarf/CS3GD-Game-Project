@@ -95,17 +95,17 @@ private int attackStateHash = Animator.StringToHash("Attacking");
     void Chase(){
         enemyAnimator.SetInteger(movementStateHash, 0); // set enemy to idle animation by default
         if(attackReady){
-            Debug.Log("checking if player is in range");
+           // Debug.Log("checking if player is in range");
             playerInAttackRange = Physics.CheckSphere(this.transform.position, attackRange, whatIsPlayer);
             if (playerInAttackRange){
                 state = AgentState.attacking;
-                Debug.Log("Player within attack range");
+            //    Debug.Log("Player within attack range");
             }
             else{
-                Debug.Log("Player outside attack range");
+            //    Debug.Log("Player outside attack range");
                 playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
                 if(playerInDetectionRange){
-                    Debug.Log("Player within detection range, moving towards player");
+                 //   Debug.Log("Player within detection range, moving towards player");
                     enemyAnimator.SetInteger(movementStateHash, 2); //activate walk cycle if in pursuit
                     agent.isStopped = false;
                     agent.SetDestination(player.position);
@@ -115,7 +115,7 @@ private int attackStateHash = Animator.StringToHash("Attacking");
         }
         else {
             timeSinceAttack += Time.deltaTime;
-            Debug.Log("Waiting on attack cooldown. time remaining: " + (attackCooldown - timeSinceAttack));
+           // Debug.Log("Waiting on attack cooldown. time remaining: " + (attackCooldown - timeSinceAttack));
             if (timeSinceAttack >= attackCooldown){
                 attackReady = true;
             }

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DamageOnContact : MonoBehaviour
 {
     public CapsuleCollider hurtbox;
+    private bool ableToDealDamage = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,17 +21,17 @@ public class DamageOnContact : MonoBehaviour
     }
 
     void ToggleDamageON(){
-        hurtbox.isTrigger = true;
+        ableToDealDamage = false;
         Debug.Log("Hitbox on");
         Debug.Log(transform.gameObject.name);
     }
     void ToggleDamageOFF(){
-        hurtbox.isTrigger = false;
+        ableToDealDamage = false;
         Debug.Log("Hitbox off");
     }
 
-    void OnTriggerEnter(Collider other){
-        if (other.tag == "Player"){
+    void OnTriggerStay(Collider other){
+        if (other.tag == "Player" && ableToDealDamage ){
             SceneManager.LoadSceneAsync(2);
         }
     }
