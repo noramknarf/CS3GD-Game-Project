@@ -81,7 +81,7 @@ private int movementStateHash = Animator.StringToHash("MovementState");
 
     //Has the enemy cycle through a set of pre-made waypoints and wander between them.
     void Patrol(){
-        enemyAnimator.SetInteger(movementStateHash, 1);
+        enemyAnimator.SetInteger(movementStateHash, 2); //activate walk cycle
         agent.isStopped = false;
         if (agent.remainingDistance <= distToSwitchWaypoints){
             agent.SetDestination(waypoints[index].position);
@@ -91,7 +91,7 @@ private int movementStateHash = Animator.StringToHash("MovementState");
     }
 
     void Chase(){
-        enemyAnimator.SetInteger(movementStateHash, 1);
+        enemyAnimator.SetInteger(movementStateHash, 0); // set enemy to idle animation by default
         if(attackReady){
             Debug.Log("checking if player is in range");
             playerInAttackRange = Physics.CheckSphere(this.transform.position, attackRange, whatIsPlayer);
@@ -101,10 +101,10 @@ private int movementStateHash = Animator.StringToHash("MovementState");
             }
             else{
                 Debug.Log("Player outside attack range");
-                enemyAnimator.SetInteger(movementStateHash, 0);
                 playerInDetectionRange = Physics.CheckSphere(this.transform.position, detectionRange, whatIsPlayer);
                 if(playerInDetectionRange){
                     Debug.Log("Player within detection range, moving towards player");
+                    enemyAnimator.SetInteger(movementStateHash, 2); //activate walk cycle if in pursuit
                     agent.isStopped = false;
                     agent.SetDestination(player.position);
 
@@ -132,11 +132,13 @@ private int movementStateHash = Animator.StringToHash("MovementState");
         if (preparingAttack) {
             windupTimer += Time.deltaTime;
             agent.isStopped = true;
+            enemyAnimator.SetInteger(movementStateHash, 1); // activate neutral state animation
         }
 
         if (windupTimer >= attackWindup)
         {
             charging = true;
+            enemyAnimator.SetInteger(movementStateHash, 3);
             preparingAttack = false;
            
             
@@ -150,7 +152,7 @@ private int movementStateHash = Animator.StringToHash("MovementState");
 
             Debug.Log("charge target = " + agent.destination);
 
-            if (agent.remainingDistance <= 2) {
+            if (agent.remainingDistance <= 1) {
                 timeSinceAttack = 0.0f;
                 charging = false;
                 state = AgentState.chasing;
