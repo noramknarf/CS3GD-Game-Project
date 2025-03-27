@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: f989f51db434e734d89f5ea89a1ed029, type: 2}
+--- !u!136 &220398881 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: -1640965389613099512, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+  m_PrefabInstance: {fileID: 1497607216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &265220905
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,12 +673,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7212154425404988856, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+      propertyPath: hurtbox
+      value: 
+      objectReference: {fileID: 220398881}
+    - target: {fileID: 7212154425404988856, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: state
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: player

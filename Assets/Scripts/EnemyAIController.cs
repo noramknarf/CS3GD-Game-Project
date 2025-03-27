@@ -35,6 +35,7 @@ private bool playerInDetectionRange;
 public float attackRange = 5.0f;
 public float attackCooldown = 5.0f;
 public float attackWindup = 2.0f;
+public float distToBeginBite = 1.5f;
 
     
 private float windupTimer = 0.0f;
@@ -45,6 +46,7 @@ private bool playerInAttackRange = false;
 private bool charging = false;
 private Animator enemyAnimator;
 private int movementStateHash = Animator.StringToHash("MovementState");
+private int attackStateHash = Animator.StringToHash("Attacking");
 
 
     // Start is called before the first frame update
@@ -151,12 +153,17 @@ private int movementStateHash = Animator.StringToHash("MovementState");
             }
 
             Debug.Log("charge target = " + agent.destination);
-
+            if (agent.remainingDistance <= distToBeginBite) {
+                enemyAnimator.SetTrigger("Attacking");
+                
+                
+            }
             if (agent.remainingDistance <= 1) {
                 timeSinceAttack = 0.0f;
                 charging = false;
                 state = AgentState.chasing;
                 Debug.Log("Reached target. Entering chase mode.");
+                enemyAnimator.ResetTrigger("Attacking");
             }
             
         }

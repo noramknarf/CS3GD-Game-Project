@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 257e753645ba2954ca2439c671e5337b
+guid: cd3c0dc0199ceea4dbf0c6b9d1d3ac5b
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
@@ -675,14 +675,14 @@ ModelImporter:
       curves: []
       events:
       - time: 0.57237536
-        functionName: ToggleDamage
+        functionName: ToggleDamageON
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 88b04b738a728984eb6acabede492e5f, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.7423471
-        functionName: ToggleDamage
+        functionName: ToggleDamageOFF
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 88b04b738a728984eb6acabede492e5f, type: 3}
         floatParameter: 0
