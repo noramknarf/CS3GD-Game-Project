@@ -22,6 +22,7 @@ public class DamageOnContact : MonoBehaviour
     void ToggleDamageON(){
         hurtbox.isTrigger = true;
         Debug.Log("Hitbox on");
+        Debug.Log(transform.gameObject.name);
     }
     void ToggleDamageOFF(){
         hurtbox.isTrigger = false;
