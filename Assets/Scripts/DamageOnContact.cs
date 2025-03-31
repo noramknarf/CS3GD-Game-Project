@@ -21,7 +21,7 @@ public class DamageOnContact : MonoBehaviour
     }
 
     void ToggleDamageON(){
-        ableToDealDamage = false;
+        ableToDealDamage = true;
         Debug.Log("Hitbox on");
         Debug.Log(transform.gameObject.name);
     }
@@ -30,8 +30,11 @@ public class DamageOnContact : MonoBehaviour
         Debug.Log("Hitbox off");
     }
 
-    void OnTriggerStay(Collider other){
+    void OnTriggerEnter(Collider other){
+        Debug.Log("HIT SOMETHING");
+        Debug.Log(ableToDealDamage);
         if (other.tag == "Player" && ableToDealDamage ){
+            Debug.Log("HIT PLAYER");
             SceneManager.LoadSceneAsync(2);
         }
     }
