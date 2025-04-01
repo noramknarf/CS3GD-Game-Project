@@ -30,9 +30,10 @@ public class DamageOnContact : MonoBehaviour
         Debug.Log("Hitbox off");
     }
 
-    void OnTriggerEnter(Collider other){
+    void OnTriggerStay(Collider other){
         Debug.Log("HIT SOMETHING");
         Debug.Log(ableToDealDamage);
+        Debug.Log(other.transform.gameObject.name);
         if (other.tag == "Player" && ableToDealDamage ){
             Debug.Log("HIT PLAYER");
             SceneManager.LoadSceneAsync(2);
