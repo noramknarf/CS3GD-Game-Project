@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class XMLManager : MonoBehaviour
 {
@@ -43,7 +44,23 @@ public struct GameDataObject{
     }
 
     public void Load(){
+        XmlDocument xmlDocument = new XmlDocument();
+        xmlDocument.Load(saveFileLocation);
+        string xmlString = xmlDocument.OuterXml;
 
+        GameDataObject gameState;
+
+        using (StringReader read = new StringReader(xmlString)){
+            XmlSerializer serializer = new XmlSerializer(typeof(GameDataObject));
+            using (XmlReader reader = new XmlTextReader(read))
+                {
+                gameState = (GameDataObject) serializer.Deserialize(reader);
+                }
+        }
+        Debug.Log("load game");
+        int levelToLoad = gameState.currentLevel;
+        Debug.Log(levelToLoad);
+        SceneManager.LoadSceneAsync(levelToLoad);
     }
 }
 
