@@ -54,7 +54,16 @@ private int attackStateHash = Animator.StringToHash("Attacking");
     {
         agent = GetComponent<NavMeshAgent>();
         enemyAnimator = this.GetComponent<Animator>();
-        
+        if (player == null){
+            Debug.Log("Player variable not set. Attempting to locate player Tag");
+            player = GameObject.FindWithTag("Player").transform;
+            if (player != null){
+                Debug.Log("Successfully found an object with the player tag");
+            }
+            else{
+                Debug.LogError("Error: " + name + " has no set target for the player variable and none could be located within the scene.");
+            }
+        }
 
     }
 
