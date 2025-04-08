@@ -6,6 +6,7 @@ using DG.Tweening;
 public class TrainController : MonoBehaviour
 {
     public GameObject destinationPoint;
+    public float travelTime = 7.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class TrainController : MonoBehaviour
     }
 
     void MoveToDestiniation(){
-        transform.DOMove(destinationPoint.transform.position, 10).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
+        transform.DOMove(destinationPoint.transform.position, travelTime).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
     }
 
 
