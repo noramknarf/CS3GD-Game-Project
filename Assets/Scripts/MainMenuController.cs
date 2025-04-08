@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    public int levelToLoad = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,6 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void ButtonControllerPlay(){
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(levelToLoad);
     }
 }
