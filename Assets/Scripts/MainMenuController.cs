@@ -21,4 +21,8 @@ public class MainMenuController : MonoBehaviour
     public void ButtonControllerPlay(){
         SceneManager.LoadSceneAsync(levelToLoad);
     }
+
+    public void SaveGame(){
+        Debug.Log("Saved game");
+    }
 }
