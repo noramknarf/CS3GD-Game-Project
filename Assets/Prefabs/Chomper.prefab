@@ -1204,16 +1204,13 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 64
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  waypoints: []
   distToSwitchWaypoints: 1
   detectionRange: 15
   attackRange: 5
   attackCooldown: 5
   attackWindup: 2
+  distToBeginBite: 1.5
 --- !u!195 &7271562512539621672
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1262,6 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b04b738a728984eb6acabede492e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hurtbox: {fileID: 0}
 --- !u!1 &7271562513134613615
 GameObject:
   m_ObjectHideFlags: 0

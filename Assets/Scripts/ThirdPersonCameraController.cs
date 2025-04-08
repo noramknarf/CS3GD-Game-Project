@@ -7,7 +7,7 @@ public class ThirdPersonCameraController : MonoBehaviour
     //NOTICE: This code was copied directly from the completed CS3GD Lab 5 to be used as a basis for further behaviours.
 
     public Transform target;
-    public float distFromTarget;
+    public float distFromTarget = 1.5f;
     public bool follow = true;
     public float displacementY = 1.5f;
     //Degree to which the camera lags just a little behind the target's motion

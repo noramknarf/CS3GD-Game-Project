@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class DamageOnContact : MonoBehaviour
 {
     public CapsuleCollider hurtbox;
-    private bool ableToDealDamage = false;
+    public bool ableToDealDamage = false;
 
     // Start is called before the first frame update
     void Start()
