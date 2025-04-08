@@ -29,6 +29,7 @@ public class CharacterMover : MonoBehaviour
 	private int walkSpeedHash = Animator.StringToHash("playerMoveSpeed");
 	private int verticalSpeedHash = Animator.StringToHash("playerVerticalSpeed");
 	private int groundedHash = Animator.StringToHash("playerGrounded");
+	private int turnSpeedHash = Animator.StringToHash("playerTurnSpeed");
 
 	
 
@@ -105,6 +106,8 @@ public class CharacterMover : MonoBehaviour
 
 		playerAnimator.SetBool(groundedHash , IsGrounded);
 		playerAnimator.SetFloat(walkSpeedHash , currentSpeed);
+		playerAnimator.SetFloat(turnSpeedHash , rotation);
+		Debug.Log("turning " + rotation);
 		//print("verticalSpeed = " + playerAnimator.GetFloat(verticalSpeedHash));
 		//print("walkSpeed = " + playerAnimator.GetFloat(walkSpeedHash));
 		
