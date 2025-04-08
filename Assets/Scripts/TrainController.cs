@@ -25,7 +25,7 @@ public class TrainController : MonoBehaviour
     }
 
     void MoveToDestiniation(){
-        transform.DOMove(new Vector3(Random.Range(-4,4), transform.position.y, Random.Range(-4,4)), 2);
+        transform.DOMove(destinationPoint.transform.position, 10);
     }
 
 
