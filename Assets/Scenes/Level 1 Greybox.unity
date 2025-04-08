@@ -87182,5 +87182,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Door Level goal
       objectReference: {fileID: 0}
+    - target: {fileID: 1331873525871505078, guid: f510c6bf2e47fec4da440d554f7b8aef, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f510c6bf2e47fec4da440d554f7b8aef, type: 3}

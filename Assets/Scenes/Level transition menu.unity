@@ -287,6 +287,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: Level Complete!
       objectReference: {fileID: 0}
+    - target: {fileID: 2705885058388267553, guid: 64d8e5c1728b4db46bede95d4d461f58, type: 3}
+      propertyPath: levelToLoad
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2705885058388267562, guid: 64d8e5c1728b4db46bede95d4d461f58, type: 3}
       propertyPath: m_Name
       value: Continue button
