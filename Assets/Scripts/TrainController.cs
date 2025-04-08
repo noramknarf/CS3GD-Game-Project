@@ -25,7 +25,7 @@ public class TrainController : MonoBehaviour
     }
 
     void MoveToDestiniation(){
-        transform.DOMove(destinationPoint.transform.position, 10);
+        transform.DOMove(destinationPoint.transform.position, 10).SetLoops(-1, LoopType.Restart);
     }
 
 
