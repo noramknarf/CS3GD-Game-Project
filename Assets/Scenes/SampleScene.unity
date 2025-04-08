@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hurtbox: {fileID: 312673406}
+  ableToDealDamage: 0
 --- !u!65 &312673406
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -789,6 +790,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 543450651920454896}
+    - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
+      propertyPath: attackWindup
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 7271562512539621675, guid: f7e440278e416cb438bfc06f81ab40b7, type: 3}
       propertyPath: distToBeginBite
       value: 2
