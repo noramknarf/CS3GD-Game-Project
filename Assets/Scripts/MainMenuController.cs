@@ -22,7 +22,7 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadSceneAsync(levelToLoad);
     }
 
-    public void SaveGame(){
-        Debug.Log("Saved game");
+    public void ExitGame(){
+        Application.Quit();
     }
 }
