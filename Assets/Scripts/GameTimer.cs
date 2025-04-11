@@ -30,6 +30,10 @@ public class GameTimer : MonoBehaviour
             SceneManager.LoadSceneAsync(2);
             loading = true;
         }
+        else{
+            PersistentDataHandler.instance.remainingTime = remainingTime;
+        }
+
 
     }
 }
