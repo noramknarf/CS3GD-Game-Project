@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b04b738a728984eb6acabede492e5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtbox: {fileID: 0}
+  ableToDealDamage: 0
 --- !u!1 &7271562513134613615
 GameObject:
   m_ObjectHideFlags: 0
