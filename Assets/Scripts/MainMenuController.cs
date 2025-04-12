@@ -10,13 +10,17 @@ public class MainMenuController : MonoBehaviour
     public Text scoreTextBox;
     public Text PBTextBox;
     public Text totalTextBox;
-    public float totalScore = 0.0f;
-    private float personalBest = 0.0f;
-    private float prevLevelScore = 0.0f;
+    public int previousLevel;
+    private float totalScore;
+    private float personalBest;
+    private float prevLevelScore;
     private PersistentDataHandler dataHandler = PersistentDataHandler.instance;
     // Start is called before the first frame update
     void Start()
     {   
+        totalScore = 0.0f;
+        personalBest = 0.0f;
+        prevLevelScore = 0.0f;
         
         //If the data object exists, check scores against personal bests and update them appropriately
         if(dataHandler != null){
@@ -29,7 +33,7 @@ public class MainMenuController : MonoBehaviour
         //if there is a textbox for the PB, display the relevant level's PB or total PB depending on the number passed.
         //for now just looks at the first index in the dataHandler's PBs array.
         if(PBTextBox != null){
-            DisplayPersonalBest(0);
+            DisplayPersonalBest();
         }
         //if there is a textbox for the total score, display that
         if(totalTextBox != null){
@@ -65,9 +69,9 @@ public class MainMenuController : MonoBehaviour
         
     }
 
-    public void DisplayPersonalBest(int previousLevelID){
-        if (dataHandler != null && dataHandler.personalBests[previousLevelID] != null){
-            personalBest = dataHandler.personalBests[previousLevelID];
+    public void DisplayPersonalBest(){
+        if (dataHandler != null && dataHandler.personalBests[previousLevel-1] != null){
+            personalBest = dataHandler.personalBests[previousLevel-1];
         }
         PBTextBox.text = ("Personal best: " + personalBest);
     }
@@ -79,8 +83,14 @@ public class MainMenuController : MonoBehaviour
     public void UpdateScores(){
         //checks if there is a score greater than the most recent score in the relevant slot of the personal bests array and, if not, stores that score in the slot.
             //Will need to be able to handle different levels later but for now, just assuming level 1.
-            if (dataHandler.personalBests[0] == null || dataHandler.personalBests[0] < dataHandler.remainingTime){
-                dataHandler.personalBests[0] = dataHandler.remainingTime; 
+            Debug.Log("PreviousLevel = " + previousLevel);
+            Debug.Log("PreviousLevel -1 = " + (previousLevel-1) );
+
+            print("Personal bests =" + dataHandler.personalBests[0]);
+            print(dataHandler.personalBests[1]);
+            print(dataHandler.personalBests[(previousLevel-1)]);
+            if (dataHandler.personalBests[previousLevel-1] == null || dataHandler.personalBests[previousLevel-1] < dataHandler.remainingTime){
+                dataHandler.personalBests[previousLevel-1] = dataHandler.remainingTime; 
             }
             foreach(float score in dataHandler.personalBests){
                 totalScore += score; // totals up the scores in the PB. May do weird things if levels are played out of order but for now doesn't matter.

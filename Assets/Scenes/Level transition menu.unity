@@ -243,7 +243,7 @@ MonoBehaviour:
   scoreTextBox: {fileID: 150570076}
   PBTextBox: {fileID: 1773405145}
   totalTextBox: {fileID: 0}
-  totalScore: 0
+  previousLevel: 1
 --- !u!1 &150570074
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,7 +616,7 @@ MonoBehaviour:
   scoreTextBox: {fileID: 0}
   PBTextBox: {fileID: 0}
   totalTextBox: {fileID: 0}
-  totalScore: 0
+  previousLevel: 1
 --- !u!114 &927264621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   scoreTextBox: {fileID: 0}
   PBTextBox: {fileID: 0}
   totalTextBox: {fileID: 0}
-  totalScore: 0
+  previousLevel: 1
 --- !u!114 &2114177413
 MonoBehaviour:
   m_ObjectHideFlags: 0
