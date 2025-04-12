@@ -8,15 +8,33 @@ public class MainMenuController : MonoBehaviour
 {
     public int levelToLoad = 1;
     public Text scoreTextBox;
-    public float totalScore = 0;
+    public Text PBTextBox;
+    public Text totalTextBox;
+    public float totalScore = 0.0f;
+    private float personalBest = 0.0f;
+    private float prevLevelScore = 0.0f;
+    private PersistentDataHandler dataHandler = PersistentDataHandler.instance;
     // Start is called before the first frame update
     void Start()
-    {
-        if(scoreTextBox != null){
+    {   
+        
+        //If the data object exists, check scores against personal bests and update them appropriately
+        if(dataHandler != null){
             UpdateScores();
         }
-        
-        
+        //if the menu has a textbox for the previous level, show the last level's score
+        if(scoreTextBox != null){
+            DisplayPrevLevel();
+        }
+        //if there is a textbox for the PB, display the relevant level's PB or total PB depending on the number passed.
+        //for now just looks at the first index in the dataHandler's PBs array.
+        if(PBTextBox != null){
+            DisplayPersonalBest(0);
+        }
+        //if there is a textbox for the total score, display that
+        if(totalTextBox != null){
+            DisplayTotal();
+        }
     }
 
     // Update is called once per frame
@@ -35,10 +53,38 @@ public class MainMenuController : MonoBehaviour
     public void ExitGame(){
         Application.Quit();
     }
-    public void UpdateScores(){
-        scoreTextBox.text = ("Your score:" + totalScore);
-        if(PersistentDataHandler.instance != null){
-            UpdateScores();
+    public void DisplayPrevLevel(){
+        //TODO: Add a parameter so this can be told what the previous level was.
+        //perhaps might split into a separate method for PBs
+        
+        if (dataHandler != null && dataHandler.remainingTime != null){
+            prevLevelScore = dataHandler.remainingTime;
         }
+        
+        scoreTextBox.text = ("Your score: " + prevLevelScore); //left outside the if statement so that the scoreboard will always at least have a placeholder value if dataHandler doesn't exist.
+        
+    }
+
+    public void DisplayPersonalBest(int previousLevelID){
+        if (dataHandler != null && dataHandler.personalBests[previousLevelID] != null){
+            personalBest = dataHandler.personalBests[previousLevelID];
+        }
+        PBTextBox.text = ("Personal best: " + personalBest);
+    }
+
+    public void DisplayTotal(){
+        totalTextBox.text = ("Total score: " + totalScore);
+    }
+
+    public void UpdateScores(){
+        //checks if there is a score greater than the most recent score in the relevant slot of the personal bests array and, if not, stores that score in the slot.
+            //Will need to be able to handle different levels later but for now, just assuming level 1.
+            if (dataHandler.personalBests[0] == null || dataHandler.personalBests[0] < dataHandler.remainingTime){
+                dataHandler.personalBests[0] = dataHandler.remainingTime; 
+            }
+            foreach(float score in dataHandler.personalBests){
+                totalScore += score; // totals up the scores in the PB. May do weird things if levels are played out of order but for now doesn't matter.
+            } // For the moment, maybe it'd be best to have most menus just display the last level's score, then have the total only used for the final victory screen.
+            
     }
 }
