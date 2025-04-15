@@ -27,8 +27,8 @@ public class RemoteHighScoreManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void GetHighScore() {
-        coroutineReceive = GetHighScoreCR();
+    public void GetHighScore(Action <int> onCompleteCallback) {
+        coroutineReceive = GetHighScoreCR(onCompleteCallback);
         StartCoroutine(coroutineReceive);
 
     }
@@ -40,20 +40,21 @@ public class RemoteHighScoreManager : MonoBehaviour {
     }
 
 
-    public IEnumerator GetHighScoreCR() {
+    public IEnumerator GetHighScoreCR(Action<int> onCompleteCallback) {
+        Debug.Log("Begin GetHighScoreCR");
 
         string strTableName = "Scores";
 
         // TODO #2 - construct the url for our request, including objectid!
         const string objectID = "A05204F7-51D6-4736-BD52-DB7619ED1137";
-        string url = "https://eu-api.backendless.com/" +
+        string url = "https://api.backendless.com/022A73B8-8106-45AB-8A3E-13C35A048C67/3523EAD7-33DC-4F93-9443-CAD91086CEDA/data/HighScores/A05204F7-51D6-4736-BD52-DB7619ED1137" ;/*"https://api.backendless.com/" +
                     PersistentDataHandler.APPLICATION_ID + "/" +
                     PersistentDataHandler.REST_SECRET_KEY +
                     "/data/" +
                     strTableName +
                     "/" +
                     objectID +
-                    "'";
+                    "'";*/
 
 
 
@@ -75,17 +76,22 @@ public class RemoteHighScoreManager : MonoBehaviour {
             Debug.Log("ConnectionError");
         } else if (webreq.result == UnityWebRequest.Result.ProtocolError) {
             Debug.Log("ProtocolError");
+            Debug.Log("Code: " + webreq.responseCode);
         } else if (webreq.result == UnityWebRequest.Result.DataProcessingError) {
             Debug.Log("DataProcessingError");
         } else if (webreq.result == UnityWebRequest.Result.Success) {
             Debug.Log("Success");
-        } else {
+        
             // TODO #7 - Convert the downloadHandler.text property to HighScoreResult (currently JSON)
             HighScoreResult highScoreData = JsonUtility.FromJson<HighScoreResult>(webreq.downloadHandler.text);
 
             // TODO #8 - check that there are no backendless errors
             if (!string.IsNullOrEmpty(highScoreData.code)) {
                 Debug.Log("Error:" + highScoreData.code + " " + highScoreData.message);
+            }
+            else{
+                Debug.Log("Gets here");
+                onCompleteCallback(highScoreData.Score);
             }
         }
     }
