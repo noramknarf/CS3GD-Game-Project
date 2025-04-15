@@ -33,8 +33,8 @@ public class RemoteHighScoreManager : MonoBehaviour {
 
     }
 
-    public void SetHighScore(int score) {
-        coroutineSend = SetHighScoreCR(score);
+    public void SetHighScore(Action OncompleteCallback, int score) {
+        coroutineSend = SetHighScoreCR(OncompleteCallback, score);
         StartCoroutine(coroutineSend);
 
     }
@@ -96,11 +96,11 @@ public class RemoteHighScoreManager : MonoBehaviour {
     }
 
     // TODO #1 - change the signature to be a Coroutine, add callback parameter
-    public IEnumerator SetHighScoreCR(int score) {
+    public IEnumerator SetHighScoreCR(Action OnCompleteCallback,int score) {
         string strTableName = "Scores";
 
         // TODO #2 - construct the url for our request, including objectid!
-        string url = "https://eu-api.backendless.com/" +
+        string url = "https://api.backendless.com/" +
                     PersistentDataHandler.APPLICATION_ID + "/" +
                     PersistentDataHandler.REST_SECRET_KEY +
                     "/data/" +
@@ -130,14 +130,17 @@ public class RemoteHighScoreManager : MonoBehaviour {
         } else if (webreq.result == UnityWebRequest.Result.DataProcessingError) {
             Debug.Log("DataProcessingError");
         } else if (webreq.result == UnityWebRequest.Result.Success) {
-            Debug.Log("Success");
-        } else {
+            Debug.Log("Successful put request");
+        
             // TODO #7 - Convert the downloadHandler.text property to HighScoreResult (currently JSON)
             HighScoreResult highScoreData = JsonUtility.FromJson<HighScoreResult>(webreq.downloadHandler.text);
 
             // TODO #8 - check that there are no backendless errors
             if (!string.IsNullOrEmpty(highScoreData.code)) {
                 Debug.Log("Error:" + highScoreData.code + " " + highScoreData.message);
+            }
+            else{
+                OnCompleteCallback();
             }
         }
     }

@@ -18,7 +18,7 @@ public class LeaderboardTextController : MonoBehaviour {
     }
 
     public void ButtonHandlerReset() {
-        RemoteHighScoreManager.Instance.SetHighScoreCR(0);
+        RemoteHighScoreManager.Instance.SetHighScore(ResetOnComplete,0);
     }
 
     void ResetOnComplete() {
