@@ -10,6 +10,9 @@ public class PersistentDataHandler : MonoBehaviour
     //I am making this an array so that the specific level's PB can be accessed dynamically by passing the same script different parameters, rather than needing a separate script for each level
     public float currentTotalScore;
 
+    public const string APPLICATION_ID = "022A73B8-8106-45AB-8A3E-13C35A048C67"
+    public const string REST_SECRET_KEY = "3523EAD7-33DC-4F93-9443-CAD91086CEDA";
+
     void Awake(){
     if(instance != null){
         Destroy(gameObject);

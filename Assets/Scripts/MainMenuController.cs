@@ -23,7 +23,7 @@ public class MainMenuController : MonoBehaviour
         prevLevelScore = 0.0f;
         
         //If the data object exists, check scores against personal bests and update them appropriately
-        if(dataHandler != null){
+        if(dataHandler != null && previousLevel != 0){
             UpdateScores();
         }
         //if the menu has a textbox for the previous level, show the last level's score
