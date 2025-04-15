@@ -34,7 +34,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
     }
 
     public void SetHighScore(Action OncompleteCallback, int score) {
-        coroutineSend = SetHighScoreCR(OncompleteCallback, score);
+        coroutineSend = SetHighScoreCR(OncompleteCallback, score, "");
         StartCoroutine(coroutineSend);
 
     }
@@ -51,9 +51,9 @@ public class RemoteHighScoreManager : MonoBehaviour {
                     PersistentDataHandler.APPLICATION_ID + "/" +
                     PersistentDataHandler.REST_SECRET_KEY +
                     "/data/" +
-                    strTableName +
+                    strTableName;/* +
                     "/" +
-                    objectID;
+                    objectID;*/
 
 
 
@@ -82,6 +82,11 @@ public class RemoteHighScoreManager : MonoBehaviour {
             Debug.Log("Success");
         
             // TODO #7 - Convert the downloadHandler.text property to HighScoreResult (currently JSON)
+            Debug.Log(webreq.downloadHandler.text);
+            Debug.Log(webreq.downloadHandler.text.GetType());
+           // foreach(){}
+
+
             HighScoreResult highScoreData = JsonUtility.FromJson<HighScoreResult>(webreq.downloadHandler.text);
 
             // TODO #8 - check that there are no backendless errors
@@ -96,15 +101,29 @@ public class RemoteHighScoreManager : MonoBehaviour {
     }
 
     // TODO #1 - change the signature to be a Coroutine, add callback parameter
-    public IEnumerator SetHighScoreCR(Action OnCompleteCallback,int score) {
-        string strTableName = "Scores";
-
-        // TODO #2 - construct the url for our request, including objectid!
-        string url = "https://api.backendless.com/" +
+    public IEnumerator SetHighScoreCR(Action OnCompleteCallback,int score, string id) {
+        string strTableName = "HighScores";
+        string url = "";
+        if (String.IsNullOrEmpty(id)){
+        
+            // TODO #2 - construct the url for our request, including objectid!
+            url = "https://api.backendless.com/" +
                     PersistentDataHandler.APPLICATION_ID + "/" +
                     PersistentDataHandler.REST_SECRET_KEY +
                     "/data/" +
                     strTableName;
+        }
+        else{
+            url = "https://api.backendless.com/" +
+                    PersistentDataHandler.APPLICATION_ID + "/" +
+                    PersistentDataHandler.REST_SECRET_KEY +
+                    "/data/" +
+                    strTableName +
+                    "/" +
+                    id;
+        }
+
+        
 
 
         // TODO #3 - construct JSON string for data we want to send
