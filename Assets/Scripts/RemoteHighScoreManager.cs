@@ -42,10 +42,10 @@ public class RemoteHighScoreManager : MonoBehaviour {
 
     public IEnumerator GetHighScoreCR() {
 
-        string strTableName = "TestTable";
+        string strTableName = "Scores";
 
         // TODO #2 - construct the url for our request, including objectid!
-        const string objectID = "AAEDECDA-6F71-4BC5-8C42-B5C0673E31A1";
+        const string objectID = "A05204F7-51D6-4736-BD52-DB7619ED1137";
         string url = "https://eu-api.backendless.com/" +
                     PersistentDataHandler.APPLICATION_ID + "/" +
                     PersistentDataHandler.REST_SECRET_KEY +
@@ -92,7 +92,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
 
     // TODO #1 - change the signature to be a Coroutine, add callback parameter
     public IEnumerator SetHighScoreCR(int score) {
-        string strTableName = "TestTable";
+        string strTableName = "Scores";
 
         // TODO #2 - construct the url for our request, including objectid!
         string url = "https://eu-api.backendless.com/" +
