@@ -21,18 +21,40 @@ public class LeaderboardTextController : MonoBehaviour {
         Debug.Log("submit triggers");
         if (PersistentDataHandler.instance != null){
             int currentSessionPB = (int) PersistentDataHandler.instance.currentTotalScore;
+            List<HighScoreResult> highScoresfromDB = RemoteHighScoreManager.Instance.highScoresFromDB;
+            Debug.Log("Your score was: "+ currentSessionPB);
             bool worthy = false;
-            foreach(HighScoreResult highScore in RemoteHighScoreManager.Instance.highScoresFromDB){
-                if (currentSessionPB > highScore.Score){
-                    Debug.Log("New PB added to leaderboard");
-                    worthy = true;
-                    break;
+
+            if(RemoteHighScoreManager.Instance.highScoresFromDB.Count >= 5){
+                foreach(HighScoreResult highScore in highScoresfromDB){
+                    Debug.Log("previous score: " + highScore.Score);
+                    if (currentSessionPB > highScore.Score){
+                        Debug.Log("New PB added to leaderboard");
+                        worthy = true;
+                        RemoteHighScoreManager.Instance.SetHighScore(UpdateUI, currentSessionPB, highScore.objectId);
+                        RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
+                        break;
+                    }
                 }
             }
+            else{
+                Debug.Log(highScoresfromDB.Count);
+            }
+            
+        }
+        else{
+            Debug.Log("No Global data object initialised");
         }
     }
 
-    void UpdateUI(List<int> scores) {
+    void UpdateUI() {
+        List<HighScoreResult> DBEntries = RemoteHighScoreManager.Instance.highScoresFromDB;
+        List<int> scores = new List<int>();
+        foreach(HighScoreResult result in DBEntries){
+            scores.Add(result.Score);
+        }
+        scores.Sort();
+        scores.Reverse();
         foreach(int i in scores){
             Debug.Log(i);
         }
@@ -61,9 +83,8 @@ public class LeaderboardTextController : MonoBehaviour {
     }
 
     void ResetOnComplete() {
-        List<int> thisIsDUMB = new List<int>(); //this makes no sense and needs to be completely reworked but first let's get the top5 logic sorted.
-        thisIsDUMB.Add(0);
-        UpdateUI(thisIsDUMB);
+        
+        UpdateUI();
     }
 
 }

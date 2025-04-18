@@ -46,7 +46,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void GetHighScore(Action <List<int>> onCompleteCallback) {
+    public void GetHighScore(Action onCompleteCallback) {
         coroutineReceive = GetHighScoreCR(onCompleteCallback);
         StartCoroutine(coroutineReceive);
 
@@ -64,7 +64,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
     }
 
 
-    public IEnumerator GetHighScoreCR(Action<List<int>> onCompleteCallback) {
+    public IEnumerator GetHighScoreCR(Action onCompleteCallback) {
         Debug.Log("Begin GetHighScoreCR");
 
         string strTableName = "HighScores";
@@ -137,7 +137,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
                 }
                 topFive.Sort();
                 topFive.Reverse();
-                onCompleteCallback(topFive); //returns all the scores in the DB in descending order
+                onCompleteCallback(); //returns all the scores in the DB in descending order
             }
         }
     }
@@ -201,6 +201,12 @@ public class RemoteHighScoreManager : MonoBehaviour {
                 Debug.Log("Error:" + highScoreData.code + " " + highScoreData.message);
             }
             else{
+                // string json = webreq.downloadHandler.text;
+                // HighScoreDataset dbRows = JsonUtility.FromJson<HighScoreDataset>("{\"highScores\":" + json + "}");
+                // RemoteHighScoreManager.Instance.highScoresFromDB = new List<HighScoreResult>();
+                // foreach(HighScoreResult highScore in dbRows.highScores){
+                //     highScoresFromDB.Add(highScore);
+                // }
                 OnCompleteCallback();
             }
         }
