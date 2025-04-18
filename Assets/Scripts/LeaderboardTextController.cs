@@ -17,6 +17,21 @@ public class LeaderboardTextController : MonoBehaviour {
         Debug.Log("MERP");
     }
 
+    public void SubmitScore(){
+        Debug.Log("submit triggers");
+        if (PersistentDataHandler.instance != null){
+            int currentSessionPB = (int) PersistentDataHandler.instance.currentTotalScore;
+            bool worthy = false;
+            foreach(HighScoreResult highScore in RemoteHighScoreManager.Instance.highScoresFromDB){
+                if (currentSessionPB > highScore.Score){
+                    Debug.Log("New PB added to leaderboard");
+                    worthy = true;
+                    break;
+                }
+            }
+        }
+    }
+
     void UpdateUI(List<int> scores) {
         foreach(int i in scores){
             Debug.Log(i);

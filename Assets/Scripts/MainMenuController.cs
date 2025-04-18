@@ -94,6 +94,7 @@ public class MainMenuController : MonoBehaviour
             }
             foreach(float score in dataHandler.personalBests){
                 totalScore += score; // totals up the scores in the PB. May do weird things if levels are played out of order but for now doesn't matter.
+                dataHandler.currentTotalScore = totalScore;
             } // For the moment, maybe it'd be best to have most menus just display the last level's score, then have the total only used for the final victory screen.
             
     }
