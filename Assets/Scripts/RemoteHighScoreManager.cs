@@ -13,6 +13,7 @@ public class HighScoreResult : IComparable{
     //public string updated;
     //public string created;
     //public string objectid;
+    
 
     public int CompareTo(object obj){
         if (obj == null){return 1;}
@@ -35,6 +36,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
 
     private IEnumerator coroutineSend;
     private IEnumerator coroutineReceive;
+    public List<HighScoreResult> highScoresFromDB; 
 
     void Awake() {
         // force singleton instance
@@ -119,13 +121,18 @@ public class RemoteHighScoreManager : MonoBehaviour {
             }
             else{
                 Debug.Log("Gets here");
+                RemoteHighScoreManager.Instance.highScoresFromDB = new List<HighScoreResult>();
+                foreach(HighScoreResult highScore in dbRows.highScores){
+                    highScoresFromDB.Add(highScore);
+                }
+        
                 List<int> topFive = new List<int>();
                 foreach(HighScoreResult highScore in dbRows.highScores){
                     topFive.Add(highScore.Score);
                 }
                 topFive.Sort();
                 topFive.Reverse();
-                onCompleteCallback(topFive);
+                onCompleteCallback(topFive); //returns all the scores in the DB in descending order
             }
         }
     }
