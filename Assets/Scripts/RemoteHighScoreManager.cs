@@ -12,7 +12,7 @@ public class HighScoreResult : IComparable{
     public string message;
     //public string updated;
     //public string created;
-    //public string objectid;
+    public string objectId;
     
 
     public int CompareTo(object obj){
@@ -54,6 +54,11 @@ public class RemoteHighScoreManager : MonoBehaviour {
 
     public void SetHighScore(Action OncompleteCallback, int score) {
         coroutineSend = SetHighScoreCR(OncompleteCallback, score, "");
+        StartCoroutine(coroutineSend);
+
+    }
+    public void SetHighScore(Action OncompleteCallback, int score, string id) {
+        coroutineSend = SetHighScoreCR(OncompleteCallback, score, id);
         StartCoroutine(coroutineSend);
 
     }

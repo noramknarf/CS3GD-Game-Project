@@ -38,7 +38,11 @@ public class LeaderboardTextController : MonoBehaviour {
     }
 
     public void ButtonHandlerReset() {
-        RemoteHighScoreManager.Instance.SetHighScore(ResetOnComplete,0);
+        foreach(HighScoreResult highScore in RemoteHighScoreManager.Instance.highScoresFromDB){
+            Debug.Log("CRAAABB PEOPLEE " + highScore.objectId);
+            RemoteHighScoreManager.Instance.SetHighScore(ResetOnComplete,0, highScore.objectId);
+        }
+        
     }
 
     void ResetOnComplete() {
