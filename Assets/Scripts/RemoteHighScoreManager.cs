@@ -123,6 +123,8 @@ public class RemoteHighScoreManager : MonoBehaviour {
                 foreach(HighScoreResult highScore in dbRows.highScores){
                     topFive.Add(highScore.Score);
                 }
+                topFive.Sort();
+                topFive.Reverse();
                 onCompleteCallback(topFive);
             }
         }

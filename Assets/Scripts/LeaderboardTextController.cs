@@ -18,9 +18,13 @@ public class LeaderboardTextController : MonoBehaviour {
     }
 
     void UpdateUI(List<int> scores) {
+        foreach(int i in scores){
+            Debug.Log(i);
+        }
+        
         Text[] textboxes = {highScore1, highScore2, highScore3, highScore4, highScore5};
         for (int i = 0; i < 5; i++){
-            if (i < scores.Count && scores[i] != null){
+            if (i < scores.Count && scores[i] != null && scores[i] != 0){
                 textboxes[i].text = "High Score: " + scores[i] + "!";
             }
             else{
