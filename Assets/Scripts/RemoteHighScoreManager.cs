@@ -5,11 +5,18 @@ using UnityEngine.Networking;
 using System;
 using System.IO;
 
-
+[Serializable]
 public class HighScoreResult {
     public int Score;
     public string code;
     public string message;
+    //public string updated;
+    //public string created;
+    //public string objectid;
+}
+[Serializable]
+public class HighScoreDataset{
+    public HighScoreResult[] highScores;
 }
 
 public class RemoteHighScoreManager : MonoBehaviour {
@@ -86,8 +93,16 @@ public class RemoteHighScoreManager : MonoBehaviour {
             Debug.Log(webreq.downloadHandler.text.GetType());
            // foreach(){}
 
-
-            HighScoreResult highScoreData = JsonUtility.FromJson<HighScoreResult>(webreq.downloadHandler.text);
+            string json = webreq.downloadHandler.text;
+            HighScoreDataset dbRows = JsonUtility.FromJson<HighScoreDataset>("{\"highScores\":" + json + "}");
+            //HighScoreResult highScoreData = JsonUtility.FromJson<HighScoreResult>(webreq.downloadHandler.text);
+            //HighScoreResult highScoreData = dbRows.highScores[0];
+            Debug.Log("dbRows: " + dbRows);
+            if(dbRows.highScores == null){
+                Debug.Log("is null");
+            }
+            Debug.Log("First entry = " + dbRows.highScores[0]);
+            HighScoreResult highScoreData = new HighScoreResult();
 
             // TODO #8 - check that there are no backendless errors
             if (!string.IsNullOrEmpty(highScoreData.code)) {
