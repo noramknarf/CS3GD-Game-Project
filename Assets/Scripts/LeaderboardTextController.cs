@@ -5,16 +5,32 @@ using UnityEngine.UI;
 
 public class LeaderboardTextController : MonoBehaviour {
 
-    public Text highScoreText;
+    public Text highScore1;
+    public Text highScore2;
+    public Text highScore3;
+    public Text highScore4;
+    public Text highScore5;
+    
 
     void Start() {
         RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
         Debug.Log("MERP");
     }
 
-    void UpdateUI(int score) {
-        if (score > 0) highScoreText.text = "High Score: " + score + "!";
-        else highScoreText.text = "No High Score!";
+    void UpdateUI(List<int> scores) {
+        Text[] textboxes = {highScore1, highScore2, highScore3, highScore4, highScore5};
+        for (int i = 0; i < 5; i++){
+            if (i < scores.Count && scores[i] != null){
+                textboxes[i].text = "High Score: " + scores[i] + "!";
+            }
+            else{
+                textboxes[i].text = "No High Score!";
+            }
+        }
+        
+        
+
+        
     }
 
     public void ButtonHandlerReset() {
@@ -22,7 +38,9 @@ public class LeaderboardTextController : MonoBehaviour {
     }
 
     void ResetOnComplete() {
-        UpdateUI(0);
+        List<int> thisIsDUMB = new List<int>(); //this makes no sense and needs to be completely reworked but first let's get the top5 logic sorted.
+        thisIsDUMB.Add(0);
+        UpdateUI(thisIsDUMB);
     }
 
 }

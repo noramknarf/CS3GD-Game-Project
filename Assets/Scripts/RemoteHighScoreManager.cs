@@ -6,13 +6,23 @@ using System;
 using System.IO;
 
 [Serializable]
-public class HighScoreResult {
+public class HighScoreResult : IComparable{
     public int Score;
     public string code;
     public string message;
     //public string updated;
     //public string created;
     //public string objectid;
+
+    public int CompareTo(object obj){
+        if (obj == null){return 1;}
+        
+        HighScoreResult otherScore = obj as HighScoreResult;
+        if (otherScore != null){
+            return this.Score.CompareTo(otherScore.Score);
+        }
+        else throw new ArgumentException("object is not another HighScoreResult");
+    }
 }
 [Serializable]
 public class HighScoreDataset{
@@ -34,7 +44,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void GetHighScore(Action <int> onCompleteCallback) {
+    public void GetHighScore(Action <List<int>> onCompleteCallback) {
         coroutineReceive = GetHighScoreCR(onCompleteCallback);
         StartCoroutine(coroutineReceive);
 
@@ -47,7 +57,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
     }
 
 
-    public IEnumerator GetHighScoreCR(Action<int> onCompleteCallback) {
+    public IEnumerator GetHighScoreCR(Action<List<int>> onCompleteCallback) {
         Debug.Log("Begin GetHighScoreCR");
 
         string strTableName = "HighScores";
@@ -109,7 +119,11 @@ public class RemoteHighScoreManager : MonoBehaviour {
             }
             else{
                 Debug.Log("Gets here");
-                onCompleteCallback(highScoreData.Score);
+                List<int> topFive = new List<int>();
+                foreach(HighScoreResult highScore in dbRows.highScores){
+                    topFive.Add(highScore.Score);
+                }
+                onCompleteCallback(topFive);
             }
         }
     }
