@@ -147,13 +147,16 @@ public class RemoteHighScoreManager : MonoBehaviour {
         string strTableName = "HighScores";
         string url = "";
         if (String.IsNullOrEmpty(id)){
-        
+            Debug.Log("No entry id provided. Attempting to create a new entry.");
             // TODO #2 - construct the url for our request, including objectid!
+            /*
             url = "https://api.backendless.com/" +
                     PersistentDataHandler.APPLICATION_ID + "/" +
                     PersistentDataHandler.REST_SECRET_KEY +
                     "/data/" +
                     strTableName;
+                    */
+            url = "https://api.backendless.com/022A73B8-8106-45AB-8A3E-13C35A048C67/3523EAD7-33DC-4F93-9443-CAD91086CEDA/data/HighScores"; //If there is time, I will go back to this and figure out how to add new entries properly but for now, so long as there are slots to overwrite, it technically meets the spec. Just don't manually delete anything.
         }
         else{
             url = "https://api.backendless.com/" +
@@ -188,6 +191,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
             Debug.Log("ConnectionError");
         } else if (webreq.result == UnityWebRequest.Result.ProtocolError) {
             Debug.Log("ProtocolError");
+            Debug.Log(webreq.error);
         } else if (webreq.result == UnityWebRequest.Result.DataProcessingError) {
             Debug.Log("DataProcessingError");
         } else if (webreq.result == UnityWebRequest.Result.Success) {

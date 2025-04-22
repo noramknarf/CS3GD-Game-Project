@@ -25,20 +25,26 @@ public class LeaderboardTextController : MonoBehaviour {
             Debug.Log("Your score was: "+ currentSessionPB);
             bool worthy = false;
 
-            if(RemoteHighScoreManager.Instance.highScoresFromDB.Count >= 5){
+            if(RemoteHighScoreManager.Instance.highScoresFromDB.Count > 0){
                 foreach(HighScoreResult highScore in highScoresfromDB){
                     Debug.Log("previous score: " + highScore.Score);
                     if (currentSessionPB > highScore.Score){
                         Debug.Log("New PB added to leaderboard");
-                        worthy = true;
                         RemoteHighScoreManager.Instance.SetHighScore(UpdateUI, currentSessionPB, highScore.objectId);
                         RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
+                        worthy = true;
                         break;
                     }
                 }
             }
             else{
-                Debug.Log(highScoresfromDB.Count);
+                Debug.Log("number of high scores obtained from DB = " + highScoresfromDB.Count + " Attempting to add a new score rather than overwrite.");
+                Debug.Log("");
+                RemoteHighScoreManager.Instance.SetHighScore(UpdateUI, currentSessionPB);
+                RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
+            }
+            if(!worthy){
+                Debug.Log("Score was not higher than any in DB and no empty slots to save to.");
             }
             
         }
@@ -55,8 +61,8 @@ public class LeaderboardTextController : MonoBehaviour {
         }
         scores.Sort();
         scores.Reverse();
-        foreach(int i in scores){
-            Debug.Log(i);
+        for(int i = 0; i < scores.Count; i++){
+            Debug.Log("scores " + i + " = " + scores[i]);
         }
         
         Text[] textboxes = {highScore1, highScore2, highScore3, highScore4, highScore5};
