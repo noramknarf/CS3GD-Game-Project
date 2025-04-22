@@ -40,7 +40,13 @@ public class RemoteHighScoreManager : MonoBehaviour {
 
     void Awake() {
         // force singleton instance
-        if (Instance == null) { Instance = this; } else { Destroy(gameObject); }
+        if (Instance == null) {
+            Instance = this;
+            Instance.highScoresFromDB = new List<HighScoreResult>();
+            } 
+        else { 
+            Destroy(gameObject); 
+        }
 
         // don't destroy this object when we load scene
         DontDestroyOnLoad(gameObject);
@@ -126,7 +132,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
             }
             else{
                 Debug.Log("Gets here");
-                RemoteHighScoreManager.Instance.highScoresFromDB = new List<HighScoreResult>();
+                RemoteHighScoreManager.Instance.highScoresFromDB.Clear();
                 foreach(HighScoreResult highScore in dbRows.highScores){
                     highScoresFromDB.Add(highScore);
                 }
@@ -138,6 +144,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
                 topFive.Sort();
                 topFive.Reverse();
                 onCompleteCallback(); //returns all the scores in the DB in descending order
+                Debug.Log("Completed get data and called UI update function");
             }
         }
     }
@@ -166,6 +173,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
                     strTableName +
                     "/" +
                     id;
+            Debug.Log("Attempting to reset object with id: " + id);
         }
 
         
@@ -195,7 +203,7 @@ public class RemoteHighScoreManager : MonoBehaviour {
         } else if (webreq.result == UnityWebRequest.Result.DataProcessingError) {
             Debug.Log("DataProcessingError");
         } else if (webreq.result == UnityWebRequest.Result.Success) {
-            Debug.Log("Successful put request");
+            Debug.Log("Successful put request for object " + id);
         
             // TODO #7 - Convert the downloadHandler.text property to HighScoreResult (currently JSON)
             HighScoreResult highScoreData = JsonUtility.FromJson<HighScoreResult>(webreq.downloadHandler.text);

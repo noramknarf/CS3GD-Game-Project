@@ -14,7 +14,7 @@ public class LeaderboardTextController : MonoBehaviour {
 
     void Start() {
         RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
-        Debug.Log("MERP");
+        Debug.Log("initial UI update complete.");
     }
 
     public void SubmitScore(){
@@ -30,8 +30,8 @@ public class LeaderboardTextController : MonoBehaviour {
                     Debug.Log("previous score: " + highScore.Score);
                     if (currentSessionPB > highScore.Score){
                         Debug.Log("New PB added to leaderboard");
-                        RemoteHighScoreManager.Instance.SetHighScore(UpdateUI, currentSessionPB, highScore.objectId);
-                        RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
+                        RemoteHighScoreManager.Instance.SetHighScore(GetHighScore, currentSessionPB, highScore.objectId);
+                        //RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
                         worthy = true;
                         break;
                     }
@@ -40,8 +40,8 @@ public class LeaderboardTextController : MonoBehaviour {
             else{
                 Debug.Log("number of high scores obtained from DB = " + highScoresfromDB.Count + " Attempting to add a new score rather than overwrite.");
                 Debug.Log("");
-                RemoteHighScoreManager.Instance.SetHighScore(UpdateUI, currentSessionPB);
-                RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
+                RemoteHighScoreManager.Instance.SetHighScore(GetHighScore, currentSessionPB);
+                //RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
             }
             if(!worthy){
                 Debug.Log("Score was not higher than any in DB and no empty slots to save to.");
@@ -91,6 +91,10 @@ public class LeaderboardTextController : MonoBehaviour {
     void ResetOnComplete() {
         
         UpdateUI();
+    }
+
+    void GetHighScore(){
+        RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
     }
 
 }
