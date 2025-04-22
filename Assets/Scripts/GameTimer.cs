@@ -26,8 +26,6 @@ public class GameTimer : MonoBehaviour
     {
         remainingTime -= Time.deltaTime;
         clockImage.fillAmount = remainingTime / startingTime;
-        print("remaining time divided by starting time = " + remainingTime / startingTime);
-        print("clockImage FillAmount = " + clockImage.fillAmount);
         remainingMins = (int)(remainingTime / 60);
         remainingSeconds = (int)(remainingTime % 60);
         timerText.text = string.Format("{0:D2}:{1:D2}", remainingMins, remainingSeconds);
@@ -39,7 +37,10 @@ public class GameTimer : MonoBehaviour
             loading = true;
         }
         else{
-            PersistentDataHandler.instance.remainingTime = remainingTime;
+            if(PersistentDataHandler.instance != null){
+                PersistentDataHandler.instance.remainingTime = remainingTime;
+            }
+            
         }
 
 
