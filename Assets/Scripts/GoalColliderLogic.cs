@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GoalColliderLogic : MonoBehaviour
 {
     [SerializeField]
+    public int levelToLoad = 4;
     private AudioSource GoalSoundSource;
 
     /* Start is called before the first frame update
@@ -23,7 +24,7 @@ public class GoalColliderLogic : MonoBehaviour
 
     public void OnTriggerEnter(Collider triggeringObj){
         if (triggeringObj.tag == "Player"){
-            SceneManager.LoadSceneAsync(3);
+            SceneManager.LoadSceneAsync(levelToLoad);
             //GoalSoundSource.Play();
         }
 

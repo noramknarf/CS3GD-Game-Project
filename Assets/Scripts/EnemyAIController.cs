@@ -19,6 +19,7 @@ public NavMeshAgent agent;
 public Transform player;
 public LayerMask whatIsGround;
 public LayerMask whatIsPlayer;
+public AudioSource growlSFX;
 
 //patrol variables
 public Transform[] waypoints;
@@ -160,11 +161,13 @@ private int attackStateHash = Animator.StringToHash("Attacking");
                 agent.isStopped = false;
                 agent.SetDestination(targetCoords);
                 Debug.Log("This should only happen once");
+                growlSFX.Play();
             }
 
             Debug.Log("charge target = " + agent.destination);
             if (agent.remainingDistance <= distToBeginBite) {
                 enemyAnimator.SetTrigger("Attacking");
+                
                 
                 
             }

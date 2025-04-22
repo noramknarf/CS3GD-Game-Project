@@ -30,6 +30,8 @@ public class CharacterMover : MonoBehaviour
 	private int verticalSpeedHash = Animator.StringToHash("playerVerticalSpeed");
 	private int groundedHash = Animator.StringToHash("playerGrounded");
 	private int turnSpeedHash = Animator.StringToHash("playerTurnSpeed");
+	private int RemainingJumpHash = Animator.StringToHash("playerJumpsRemaining");
+	private int airjumpHash = Animator.StringToHash("Airjumped");
 
 	
 
@@ -55,6 +57,7 @@ public class CharacterMover : MonoBehaviour
 			float input = Input.GetAxis("Vertical");
 	        bool  isMoving = (input != 0);
 			remainingJumps = maxJumps;
+			playerAnimator.SetBool(airjumpHash, false);
 
 			moveDirection.x = transform.forward.x;
 			moveDirection.z = transform.forward.z;
@@ -92,6 +95,13 @@ public class CharacterMover : MonoBehaviour
 			remainingJumps--;
 			jumpCooldown = maxJumpCooldown;
 			print("Remaining jumps = " + remainingJumps + "/" + maxJumps);
+			if(remainingJumps < 1){
+				print("airjump!");
+				playerAnimator.SetInteger(RemainingJumpHash, remainingJumps);
+				print("Set remainingJumps to " + playerAnimator.GetInteger(RemainingJumpHash));
+				playerAnimator.SetBool(airjumpHash, true);
+			}
+			
 		}
 
 		float rotation = (Input.GetAxis("Horizontal") * rotationSpeed) * Time.deltaTime;
