@@ -68,7 +68,7 @@ public class LeaderboardTextController : MonoBehaviour {
         Text[] textboxes = {highScore1, highScore2, highScore3, highScore4, highScore5};
         for (int i = 0; i < 5; i++){
             if (i < scores.Count && scores[i] != null && scores[i] != 0){
-                textboxes[i].text = i+ "." + " High Score: " + scores[i] + "!";
+                textboxes[i].text = (i+1) + "." + " High Score: " + scores[i] + "!";
             }
             else{
                 textboxes[i].text = "No High Score!";
