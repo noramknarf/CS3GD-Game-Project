@@ -12,8 +12,12 @@ public class XMLManager : MonoBehaviour
 [System.Serializable]
 public struct GameDataObject{
     public int currentLevel;
-    public GameDataObject(int currentLevel){
+    public float[] personalBests;
+    public float currentTotalScore;
+    public GameDataObject(int currentLevel,float[] personalBests, float currentTotalScore){
         this.currentLevel = currentLevel;
+        this.personalBests = personalBests;
+        this.currentTotalScore = currentTotalScore;
     }
 }
 
@@ -32,7 +36,13 @@ public struct GameDataObject{
     // Update is called once per frame
     public void Save(int levelID){
         XmlDocument xmlDocument = new XmlDocument();
-        GameDataObject gameState = new GameDataObject(levelID);
+        GameDataObject gameState = new GameDataObject(levelID, new float[2], 0.0f);
+        if(PersistentDataHandler.instance != null){
+            gameState.personalBests = PersistentDataHandler.instance.personalBests; 
+            gameState.currentTotalScore = PersistentDataHandler.instance.currentTotalScore;
+        }
+        
+        
         XmlSerializer serializer = new XmlSerializer(typeof(GameDataObject));
         using(MemoryStream stream = new MemoryStream()){
             serializer.Serialize(stream, gameState);

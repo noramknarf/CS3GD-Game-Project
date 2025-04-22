@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
 <GameDataObject xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <currentLevel>1</currentLevel>
+  <personalBests>
+    <float>56.29309</float>
+    <float>87.84553</float>
+  </personalBests>
+  <currentTotalScore>144.138611</currentTotalScore>
 </GameDataObject>
