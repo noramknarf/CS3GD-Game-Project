@@ -68,7 +68,7 @@ public class LeaderboardTextController : MonoBehaviour {
         Text[] textboxes = {highScore1, highScore2, highScore3, highScore4, highScore5};
         for (int i = 0; i < 5; i++){
             if (i < scores.Count && scores[i] != null && scores[i] != 0){
-                textboxes[i].text = "High Score: " + scores[i] + "!";
+                textboxes[i].text = i+ "." + " High Score: " + scores[i] + "!";
             }
             else{
                 textboxes[i].text = "No High Score!";
@@ -82,7 +82,7 @@ public class LeaderboardTextController : MonoBehaviour {
 
     public void ButtonHandlerReset() {
         foreach(HighScoreResult highScore in RemoteHighScoreManager.Instance.highScoresFromDB){
-            Debug.Log("CRAAABB PEOPLEE " + highScore.objectId);
+            Debug.Log("Object ID " + highScore.objectId);
             RemoteHighScoreManager.Instance.SetHighScore(GetHighScore,0, highScore.objectId);
         }
         
