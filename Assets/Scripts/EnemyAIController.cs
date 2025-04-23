@@ -145,7 +145,7 @@ private int attackStateHash = Animator.StringToHash("Attacking");
             windupTimer += Time.deltaTime;
             agent.isStopped = true;
             enemyAnimator.SetInteger(movementStateHash, 1); // activate neutral state animation
-            transform.LookAt(new Vector3(player.position.x, 0.0f, player.position.z));
+            transform.LookAt(new Vector3(player.position.x, player.position.y, player.position.z));
         }
 
         if (windupTimer >= attackWindup)

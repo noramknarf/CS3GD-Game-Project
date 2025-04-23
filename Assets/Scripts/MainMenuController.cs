@@ -71,15 +71,17 @@ public class MainMenuController : MonoBehaviour
             prevLevelScore = dataHandler.remainingTime;
         }
         
-        scoreTextBox.text = ("Level 2 score: " + prevLevelScore); //left outside the if statement so that the scoreboard will always at least have a placeholder value if dataHandler doesn't exist.
+        scoreTextBox.text = ("Level " + previousLevel +" score: " + prevLevelScore); //left outside the if statement so that the scoreboard will always at least have a placeholder value if dataHandler doesn't exist.
         
     }
 
     public void DisplayPersonalBest(){
         if (dataHandler != null && dataHandler.personalBests[previousLevel-1] != null){
             personalBest = dataHandler.personalBests[previousLevel-1];
+            Debug.Log("PB detected = " + personalBest);
+            
         }
-        PBTextBox.text = ("Level 2 Personal best: " + personalBest);
+        PBTextBox.text = ("Level " + previousLevel +" Personal best: " + personalBest);
     }
 
     public void DisplayTotal(){
@@ -91,7 +93,6 @@ public class MainMenuController : MonoBehaviour
 
     public void UpdateScores(){
         //checks if there is a score greater than the most recent score in the relevant slot of the personal bests array and, if not, stores that score in the slot.
-            //Will need to be able to handle different levels later but for now, just assuming level 1.
             Debug.Log("PreviousLevel = " + previousLevel);
             Debug.Log("PreviousLevel -1 = " + (previousLevel-1) );
 
