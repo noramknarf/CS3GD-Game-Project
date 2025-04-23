@@ -103,6 +103,10 @@ public class CharacterMover : MonoBehaviour
 			}
 			
 		}
+		if (Input.GetKeyDown("p")){
+			Debug.Log("Quitting");
+			Application.Quit();
+		}
 
 		float rotation = (Input.GetAxis("Horizontal") * rotationSpeed) * Time.deltaTime;
 

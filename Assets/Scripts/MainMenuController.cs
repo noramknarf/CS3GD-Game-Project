@@ -10,10 +10,12 @@ public class MainMenuController : MonoBehaviour
     public Text scoreTextBox;
     public Text PBTextBox;
     public Text totalTextBox;
+    public Text prevTotalBox;
     public int previousLevel;
     private float totalScore;
     private float personalBest;
     private float prevLevelScore;
+    private float prevTotalScore;
     private PersistentDataHandler dataHandler = PersistentDataHandler.instance;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class MainMenuController : MonoBehaviour
         totalScore = 0.0f;
         personalBest = 0.0f;
         prevLevelScore = 0.0f;
+        prevTotalScore = 0.0f;
         
         //If the data object exists, check scores against personal bests and update them appropriately
         if(dataHandler != null && previousLevel != 0){
@@ -38,6 +41,9 @@ public class MainMenuController : MonoBehaviour
         //if there is a textbox for the total score, display that
         if(totalTextBox != null){
             DisplayTotal();
+        }
+        if (prevTotalBox != null){
+            DisplayPrevTotal();
         }
     }
 
@@ -65,7 +71,7 @@ public class MainMenuController : MonoBehaviour
             prevLevelScore = dataHandler.remainingTime;
         }
         
-        scoreTextBox.text = ("Your score: " + prevLevelScore); //left outside the if statement so that the scoreboard will always at least have a placeholder value if dataHandler doesn't exist.
+        scoreTextBox.text = ("Level 2 score: " + prevLevelScore); //left outside the if statement so that the scoreboard will always at least have a placeholder value if dataHandler doesn't exist.
         
     }
 
@@ -73,11 +79,14 @@ public class MainMenuController : MonoBehaviour
         if (dataHandler != null && dataHandler.personalBests[previousLevel-1] != null){
             personalBest = dataHandler.personalBests[previousLevel-1];
         }
-        PBTextBox.text = ("Personal best: " + personalBest);
+        PBTextBox.text = ("Level 2 Personal best: " + personalBest);
     }
 
     public void DisplayTotal(){
-        totalTextBox.text = ("Total score: " + totalScore);
+        totalTextBox.text = ("Final total: " + totalScore);
+    }
+    public void DisplayPrevTotal(){
+        prevTotalBox.text = ("Previous total: " + prevTotalScore);
     }
 
     public void UpdateScores(){
@@ -91,6 +100,13 @@ public class MainMenuController : MonoBehaviour
             print(dataHandler.personalBests[(previousLevel-1)]);
             if (dataHandler.personalBests[previousLevel-1] == null || dataHandler.personalBests[previousLevel-1] < dataHandler.remainingTime){
                 dataHandler.personalBests[previousLevel-1] = dataHandler.remainingTime; 
+                float runningTotal = 0.0f;
+                for (int i = 0; i < dataHandler.personalBests.Length-1; i++){
+                    if (dataHandler.personalBests[i] != null){
+                        runningTotal += dataHandler.personalBests[i];
+                    }
+                }
+                prevTotalScore = runningTotal;
             }
             foreach(float score in dataHandler.personalBests){
                 totalScore += score; // totals up the scores in the PB. May do weird things if levels are played out of order but for now doesn't matter.
