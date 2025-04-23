@@ -21,17 +21,34 @@ public class LeaderboardTextController : MonoBehaviour {
         Debug.Log("submit triggers");
         if (PersistentDataHandler.instance != null){
             int currentSessionPB = (int) PersistentDataHandler.instance.currentTotalScore;
-            List<HighScoreResult> highScoresfromDB = RemoteHighScoreManager.Instance.highScoresFromDB;
+            List<HighScoreResult> highScoresfromDB = RemoteHighScoreManager.Instance.highScoresFromDB; //hsfdb = scores in the DB as they appear
+            List<HighScoreResult> scoresLowToHigh = highScoresfromDB;
+            scoresLowToHigh.Sort();
+
             Debug.Log("Your score was: "+ currentSessionPB);
             bool worthy = false;
 
             if(RemoteHighScoreManager.Instance.highScoresFromDB.Count > 0){
-                foreach(HighScoreResult highScore in highScoresfromDB){
+                
+                
+                foreach(HighScoreResult highScore in scoresLowToHigh){
                     Debug.Log("previous score: " + highScore.Score);
                     if (currentSessionPB > highScore.Score){
                         Debug.Log("New PB added to leaderboard");
+                        highScore.Score = currentSessionPB;
                         RemoteHighScoreManager.Instance.SetHighScore(GetHighScore, currentSessionPB, highScore.objectId);
+                        /*
+                        highScoresfromDB[highScoresfromDB.Count-1].Score = currentSessionPB;
+                        
+                        
+                        highScoresfromDB.Sort();
+                        
+                        for(int i=0; i<highScoresfromDB.Count; i++){
+                           RemoteHighScoreManager.Instance.SetHighScore(GetHighScore, highScoresfromDB[i].Score, RemoteHighScoreManager.Instance.highScoresFromDB[i].objectId); //In theory should save the dataset one by one to the unaltered indexes
+                        }
+                        
                         //RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
+                        */
                         worthy = true;
                         break;
                     }
