@@ -22,7 +22,7 @@ public class LeaderboardTextController : MonoBehaviour {
         if (PersistentDataHandler.instance != null){
             int currentSessionPB = (int) PersistentDataHandler.instance.currentTotalScore;
             List<HighScoreResult> highScoresfromDB = RemoteHighScoreManager.Instance.highScoresFromDB; //hsfdb = scores in the DB as they appear
-            List<HighScoreResult> scoresLowToHigh = highScoresfromDB;
+            List<HighScoreResult> scoresLowToHigh = highScoresfromDB; //probably don't need to put the low to high scores in a separate copy but I just thought it better to be safe than sorry.
             scoresLowToHigh.Sort();
 
             Debug.Log("Your score was: "+ currentSessionPB);
@@ -37,20 +37,8 @@ public class LeaderboardTextController : MonoBehaviour {
                         Debug.Log("New PB added to leaderboard");
                         highScore.Score = currentSessionPB;
                         RemoteHighScoreManager.Instance.SetHighScore(GetHighScore, currentSessionPB, highScore.objectId);
-                        /*
-                        highScoresfromDB[highScoresfromDB.Count-1].Score = currentSessionPB;
-                        
-                        
-                        highScoresfromDB.Sort();
-                        
-                        for(int i=0; i<highScoresfromDB.Count; i++){
-                           RemoteHighScoreManager.Instance.SetHighScore(GetHighScore, highScoresfromDB[i].Score, RemoteHighScoreManager.Instance.highScoresFromDB[i].objectId); //In theory should save the dataset one by one to the unaltered indexes
-                        }
-                        
-                        //RemoteHighScoreManager.Instance.GetHighScore(UpdateUI);
-                        */
-                        worthy = true;
-                        break;
+                        worthy = true; //left over from a previous version. Now only used for debug messages.
+                        break; //escape the loop so we only overwrite the lowest score in the list that our score is greater than.
                     }
                 }
             }

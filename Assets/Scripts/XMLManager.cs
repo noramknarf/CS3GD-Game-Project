@@ -69,6 +69,10 @@ public struct GameDataObject{
         }
         Debug.Log("load game");
         int levelToLoad = gameState.currentLevel;
+        if (PersistentDataHandler.instance != null){
+            PersistentDataHandler.instance.personalBests = gameState.personalBests;
+            PersistentDataHandler.instance.currentTotalScore = gameState.currentTotalScore;
+        }
         Debug.Log(levelToLoad);
         SceneManager.LoadSceneAsync(levelToLoad);
     }
