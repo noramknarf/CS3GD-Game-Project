@@ -1117,6 +1117,10 @@ PrefabInstance:
       value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2705885058388267553, guid: 64d8e5c1728b4db46bede95d4d461f58, type: 3}
+      propertyPath: levelToLoad
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705885058388267553, guid: 64d8e5c1728b4db46bede95d4d461f58, type: 3}
       propertyPath: previousLevel
       value: 2
       objectReference: {fileID: 0}
